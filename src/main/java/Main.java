@@ -3,7 +3,6 @@ public class Main {
         Queue<Integer> q = new QueueImpl<Integer>(5);
         try {
 
-
             q.push(1);
             System.out.println(q.size());
             q.push(2);
@@ -14,9 +13,15 @@ public class Main {
             System.out.println(q.size());
             q.push(5);
             System.out.println(q.size());
-            q.push(6);
+            q.pop();
+            System.out.println(q.size());
+
             }
-        catch(FullQueueException full){
+
+        catch(FullQueueException full) {
+
+        }
+        catch(EmptyQueueException empty) {
 
         }
 
