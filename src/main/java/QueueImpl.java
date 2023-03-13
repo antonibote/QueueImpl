@@ -1,6 +1,7 @@
-public class QueueImpl<E> implements Queue<E>{
+public class QueueImpl<E> implements Queue<E> {
     E[] queue;
     int i;
+    int max;
 
     /**
      * Constructor (inicialitzar la cua)
@@ -8,18 +9,15 @@ public class QueueImpl<E> implements Queue<E>{
     public QueueImpl(int length) {
         this.queue = (E[]) new Object[length];
         this.i = 0;
-    }
-    public int size() {
-        return this.i;
+        this.max = length;
     }
 
     /**
      * Push (posar element a la cua)
      * Torna la cua amb l'element afegit
      */
-
     public void push(E e) throws FullQueueException {
-        if (this.size() == queue.length) throw new FullQueueException();
+        if (isFull()) throw new FullQueueException();
         else {
             queue[i] = e;
             i++;
@@ -29,18 +27,35 @@ public class QueueImpl<E> implements Queue<E>{
     /**
      * Pop (treure element de la cua)
      */
-
     public E pop() throws EmptyQueueException {
-        if (this.size() == 0) {
+        E[] cua;
+        if (isEmpty()) {
             throw new EmptyQueueException();
         }
-        else {
+        E poppedElement = queue[0];
+        reorder(queue);
+        i--;
+        return poppedElement;
 
+    }
+
+    public int size() {
+        return i;
+    }
+
+    private boolean isFull() {
+        return (i == max);
+    }
+
+    private boolean isEmpty() {
+        return (i == 0);
+    }
+
+    private void reorder(E[] queue) {
+        for (int i = 0; i < queue.length - 1; i++) {
+            queue[i] = queue[i + 1];
         }
-        return null;
-        }
 
 
-
-
+    }
 }
